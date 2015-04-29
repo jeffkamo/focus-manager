@@ -8,9 +8,9 @@
 var FOCUSABLE_ELEMENTS = 'a[href], area[href], input, select, textarea, button, iframe, object, embed, [tabindex], [contenteditable]';
 
 var $content = $('.content');
-var $openButton = $('#openButton');
-var $subject = $('#modal');
-var $closeButton = $('#closeButton');
+var $openModalButton = $('#openModalButton');
+var $modal = $('#modal');
+var $closeModalButton = $('#closeModalButton');
 var $overlay = $('.overlay');
 
 
@@ -24,21 +24,24 @@ var openModal = function() {
     // Ensure external focusable elements are unfocusable
     disableInputs($content);
 
+    // Reveal the modal
+    $modal.attr('hidden', null);
+
     // Record current state into the focus stack
     FocusManager.store(this);
 
     // Send the current focus to the Modal
-    FocusManager.send($subject.attr('hidden', null).find('.modal__inner'));
+    FocusManager.send($modal.find('.modal__inner'));
 };
 
-$openButton.on('click', openModal);
+$openModalButton.on('click', openModal);
 
 
 // Close Modal & Bind
 // ---
 
 var closeModal = function() {
-    if ($subject.attr('hidden')) return;
+    if ($modal.attr('hidden')) return;
 
     // Un-hide the main content for screenreaders
     $content.attr('aria-hidden', 'false');
@@ -47,13 +50,13 @@ var closeModal = function() {
     enableInputs($content);
 
     // Hide the modal
-    $subject[0].setAttribute('hidden', '');
+    $modal[0].setAttribute('hidden', '');
 
     // Return to the last focus status in the stack
     FocusManager.restore();
 };
 
-$closeButton.on('click', closeModal);
+$closeModalButton.on('click', closeModal);
 
 $overlay.on('click', closeModal);
 
