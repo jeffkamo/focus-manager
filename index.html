@@ -13,6 +13,10 @@
             display: none;
         }
 
+        .tooltip {
+            background: #f1f1f1;
+        }
+
         .modal__inner {
             position: absolute;
             top: 20%;
@@ -41,11 +45,25 @@
     <div class="content">
         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
 
-        <p><a href="#" id="openTooltip">Open Tooltip</a></p>
+        <div id="tooltip1" class="tooltip" hidden>
+            <p>Tooltip #1</p>
+            <button type="button" id="closeTooltip1" name="closeTooltip1">Close Tooltip</button>
+        </div>
+
+        <p><a href="#" id="openTooltip1">Open Tooltip 1</a></p>
 
         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
 
-        <p><button type="button" id="openModalButton" data-focus-on="modal">Open</button></p>
+        <p><button type="button" id="openModalButton">Open</button></p>
+
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+
+        <div id="tooltip2" class="tooltip" hidden>
+            <p>Tooltip #2</p>
+            <button type="button" id="closeTooltip2" name="closeTooltip2">Close Tooltip</button>
+        </div>
+
+        <p><a href="#" id="openTooltip2">Open Tooltip</a></p>
 
         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
     </div>
@@ -61,11 +79,8 @@
         <div class="overlay"></div>
     </div>
 
-    <div id="tooltip" class="tooltip" hidden>
-        <p>I'm a tooltip, look at me!</p>
-    </div>
-
     <script src="FocusManager.js"></script>
     <script src="modal.js"></script>
+    <script src="tooltip.js"></script>
 </body>
 </html>

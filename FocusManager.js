@@ -53,7 +53,6 @@
 
     var FocusManager = {};
     var stack = [];
-    var activeElem;
 
     /**
      * Adds an element to the focus stack
@@ -88,7 +87,7 @@
         if (!$elem.attr('tabindex')) $elem.attr('tabindex', '0')
 
         // Focus it
-        activeElem = $elem.focus();
+        $elem.focus();
     };
 
     window.FocusManager = FocusManager; // temporary solution, probably needs to change for Require to work
