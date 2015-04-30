@@ -54,6 +54,8 @@
     var FocusManager = {};
     var stack = [];
 
+    FocusManager.VERSION = '1.0.0';
+
     /**
      * Adds an element to the focus stack
      * @param elem: a single DOM node or jQuery object
@@ -84,7 +86,7 @@
         var $elem = $(elem);
 
         // Ensure that the target element is focusable
-        if (!$elem.attr('tabindex')) $elem.attr('tabindex', '0')
+        if (!$elem.attr('tabindex')) $elem.attr('tabindex', '0');
 
         // Focus it
         $elem.focus();
