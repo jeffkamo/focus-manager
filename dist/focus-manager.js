@@ -52,19 +52,20 @@
 }(function() {
 
     var FocusManager = {};
-    var stack = [];
 
     FocusManager.VERSION = '1.0.0';
+
+    FocusManager.stack = [];
 
     /**
      * Adds an element to the focus stack
      * @param element: a single DOM node or jQuery object
      * @return {jQuery Object}
      */
-    FocusManager.store = function(element) {
-        element && stack.push($(element));
+    FocusManager.store = function($element) {
+        $element && this.stack.push($($element));
 
-        return element;
+        return $element;
     };
 
     /**
@@ -73,17 +74,17 @@
      * @return {jQuery Object}
      */
     FocusManager.restore = function() {
-        return stack.pop().focus();
+        return this.stack.pop().focus();
     };
 
     /**
      * Send current focus to an object as the current active (and focused)
      * element. Enables some accessibility features (tabindex).
      */
-    FocusManager.send = function(element) {
-        if (!element) return;
+    FocusManager.send = function($element) {
+        if (!$element) return;
 
-        var $element = $(element);
+        $element = $($element); // ensure it's a jQuery object
 
         // Ensure that the target element is focusable
         if (!$element.attr('tabindex')) $element.attr('tabindex', '0');
