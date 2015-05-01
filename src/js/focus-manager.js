@@ -57,19 +57,25 @@
 
     FocusManager.stack = [];
 
+    var validate = function($element, callback) {
+        if ($element == undefined || $($element)[0].nodeType) {
+            $element && callback.apply(FocusManager);
+        } else {
+            throw "Invalid value passed to $element parameter"
+        }
+    };
+
     /**
      * Adds an element to the focus stack
      * @param element: a single DOM node or jQuery object
      * @return {jQuery Object}
      */
     FocusManager.store = function($element) {
-        if ($element == undefined || $($element)[0].nodeType) {
-            $element && this.stack.push($($element));
+        validate($element, function() {
+            this.stack.push($($element));
+        });
 
-            return $element;
-        }
-
-        throw "Invalid value passed to $element parameter";
+        return $element;
     };
 
     /**
@@ -102,7 +108,7 @@
         if (!$element.attr('tabindex')) $element.attr('tabindex', '0');
 
         // Focus it
-        $element.focus();
+        return $element.focus();
     };
 
     window.FocusManager = FocusManager; // temporary solution, probably needs to change for Require to work

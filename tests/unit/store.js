@@ -63,5 +63,11 @@ define([
             FocusManager.store();
             expect(FocusManager.stack).to.have.length(0);
         });
+
+        it('should return the stored DOM node', function() {
+            var node = $('<div></div>');
+
+            expect(FocusManager.store(node)).to.equal(node);
+        });
     });
 });
