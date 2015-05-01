@@ -22,12 +22,49 @@ define([
             expect(function() { FocusManager.restore() }).not.to.throw();
         });
 
-        // it('should focus on the restored DOM node', function() {
-        //
-        // });
+        it('should return the restored node', function() {
+            var $button = $('button').first();
 
-        // it('should remove the restored DOM node from the stack', function() {
+            FocusManager.store($button);
+            expect(FocusManager.restore()).to.equal($button);
+        });
+
+        it('should remove from the stack the same node that was last added', function() {
+            var $buttonFirst = $('button').first();
+            var $buttonLast = $('button').last();
+
+            FocusManager.store($buttonFirst);
+            FocusManager.store($buttonLast);
+            expect(FocusManager.restore()).to.equal($buttonLast);
+        });
+
+        it('should remove only one node form the stack', function() {
+            var $buttonFirst = $('button').first();
+            var $buttonLast = $('button').last();
+
+            FocusManager.store($buttonFirst);
+            FocusManager.store($buttonLast);
+            expect(FocusManager.restore()).to.be.length(1);
+        });
+
+        // it('should focus on the restored DOM node', function(done) {
+        //     var $button = $('button').first();
         //
+        //     $button.focus(function() {
+        //         // clearTimeout(errTimeout);
+        //         // expect(true).to.be.true;
+        //         // done();
+        //         // debugger;
+        //     });
+        //
+        //     FocusManager.store($button);
+        //
+        //     // var errTimeout = setTimeout(function() {
+        //     //     expect(false).to.be.true; // Event never fired
+        //     //     done();
+        //     // }, 1000);
+        //
+        //     FocusManager.restore();
         // });
     });
 });

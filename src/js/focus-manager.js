@@ -63,8 +63,8 @@
      * @return {jQuery Object}
      */
     FocusManager.store = function($element) {
-        if ($element && $($element)[0].nodeType || $element == undefined) {
-            this.stack.push($($element));
+        if ($element == undefined || $($element)[0].nodeType) {
+            $element && this.stack.push($($element));
 
             return $element;
         }

@@ -58,5 +58,10 @@ define([
             FocusManager.store($('<div></div>'));
             expect(FocusManager.stack).to.have.length(3);
         });
+
+        it('should not add to the stack if the parameter is undefined', function() {
+            FocusManager.store();
+            expect(FocusManager.stack).to.have.length(0);
+        });
     });
 });
