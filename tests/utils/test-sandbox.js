@@ -21,7 +21,9 @@ define([
 
             // once the iframe is loaded, call back to the parent,
             // passing through the required dependencies
-            setUpComplete(frameWindow.$, frameWindow.dependencies);
+            setTimeout(function() {
+                setUpComplete(frameWindow.$, frameWindow.dependencies);
+            }, 50);
         });
     };
 
