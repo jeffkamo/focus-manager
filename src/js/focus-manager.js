@@ -58,10 +58,14 @@
     FocusManager.stack = [];
 
     var validate = function($element, callback) {
-        if ($element == undefined || $($element)[0].nodeType) {
-            $element && callback.apply(FocusManager);
-        } else {
-            throw "Invalid value passed to $element parameter"
+        try {
+            if ($element == undefined || $($element)[0].nodeType) {
+                $element && callback.apply(FocusManager);
+            }
+        }
+
+        catch (e) {
+            throw "Invalid value passed to $element parameter";
         }
     };
 
@@ -100,15 +104,13 @@
      * element. Enables some accessibility features (tabindex).
      */
     FocusManager.send = function($element) {
-        $element = $($element); // ensure it's a jQuery object
+        validate($element, function() {
+            // Ensure that the target element is focusable
+            if (!$element.attr('tabindex')) $element.attr('tabindex', '0');
 
-        if (!$element.length) return;
-
-        // Ensure that the target element is focusable
-        if (!$element.attr('tabindex')) $element.attr('tabindex', '0');
-
-        // Focus it
-        return $element.focus();
+            // Focus it
+            return $element.focus();
+        });
     };
 
     window.FocusManager = FocusManager; // temporary solution, probably needs to change for Require to work
