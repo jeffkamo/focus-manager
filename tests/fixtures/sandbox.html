@@ -28,7 +28,7 @@
             background: white;
         }
 
-        .overlay {
+        .modal__overlay {
             position: absolute;
             top: 0;
             right: 0;
@@ -58,8 +58,10 @@
 </head>
 <body>
 
-    <div class="content">
-        <h2>Tooltip Example Use Case</h2>
+    <div class="site-container">
+        <h1>Focus Manager Use Cases</h1>
+
+        <h2>Tooltip Example</h2>
 
         <div id="tooltip1" class="tooltip" hidden>
             <p>Tooltip #1</p>
@@ -68,11 +70,11 @@
 
         <p><button type="button" id="openTooltip1">Open Tooltip 1</button></p>
 
-        <h2>Modal Example Use Case</h2>
+        <h2>Modal Example</h2>
 
-        <p><button type="button" id="openModalButton">Open</button></p>
+        <p><button type="button" for="modal-1" class="js-open-modal">Open</button></p>
 
-        <h2>Accordion Example Use Case</h2>
+        <h2>Accordion Example</h2>
 
         <div class="accordion">
             <div class="accordion__item">
@@ -106,15 +108,16 @@
         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
     </div>
 
-    <div id="modal" class="modal" hidden>
+    <div id="modal-1" class="modal" hidden>
         <div class="modal__inner">
             <label for="input">Text Input</label>
             <input type="text" id="input" name="input" value="">
             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-            <button type="button" id="closeModalButton">Close</button>
+
+            <button type="button" id="closeModalButton" class="js-close-modal">Close</button>
         </div>
 
-        <div class="overlay"></div>
+        <div class="modal__overlay"></div>
     </div>
 
 
