@@ -51,45 +51,47 @@
     }
 }(function() {
 
-    var FocusManager = {
-        stack: [],
+    var FocusManager = function() {
+        var self = this;
+
+        self.stack = [];
 
         /**
          * Adds an element to the focus stack
          * @param element: a single DOM node or jQuery object
          * @return {jQuery Object}
          */
-        store: function($element) {
+        self.store = function($element) {
             validate($element, function() {
-                this.stack.push($($element));
+                self.stack.push($($element));
             });
 
             return $element;
-        },
+        };
 
         /**
          * Pops the stack then sets focus to what was the last element in the
          * stack array.
          * @return {jQuery Object}
          */
-        restore: function() {
-            if (this.stack.length)
+        self.restore = function() {
+            if (self.stack.length)
                 // First pop the stack, then send focus to the returned element
-                return this.send(this.stack.pop());
-        },
+                return self.send(self.stack.pop());
+        };
 
         /**
          * Resets the stack to an empty array
          */
-        reset: function() {
-            this.stack = [];
-        },
+        self.reset = function() {
+            self.stack = [];
+        };
 
         /**
          * Send current focus to an object as the current active (and focused)
          * element. Enables some accessibility features (tabindex).
          */
-        send: function($element) {
+        self.send = function($element) {
             validate($element, function() {
                 // Ensure that the target element is focusable
                 if (!$element.attr('tabindex')) $element.attr('tabindex', '0');
@@ -99,7 +101,7 @@
             });
 
             return $element;
-        },
+        };
     };
 
     // Version
@@ -110,7 +112,7 @@
     var validate = function($element, callback) {
         try {
             if ($element === undefined || $($element)[0].nodeType) {
-                return $element && callback.apply(FocusManager);
+                return $element && callback.apply();
             }
         }
 
@@ -121,7 +123,8 @@
 
 
     // Expose!
-    window.FocusManager = FocusManager; // temporary solution, probably needs to change for Require to work
-    return FocusManager;
+    var focusManager = new FocusManager();
+    window.FocusManager = focusManager; // temporary solution, probably needs to change for Require to work
+    return focusManager;
 
 }));
