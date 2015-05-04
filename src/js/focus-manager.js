@@ -51,72 +51,77 @@
     }
 }(function() {
 
-    var FocusManager = {};
+    var FocusManager = {
+        stack: [],
 
+        /**
+         * Adds an element to the focus stack
+         * @param element: a single DOM node or jQuery object
+         * @return {jQuery Object}
+         */
+        store: function($element) {
+            validate($element, function() {
+                this.stack.push($($element));
+            });
+
+            return $element;
+        },
+
+        /**
+         * Pops the stack then sets focus to what was the last element in the
+         * stack array.
+         * @return {jQuery Object}
+         */
+        restore: function() {
+            if (this.stack.length)
+                // First pop the stack, then send focus to the returned element
+                return this.send(this.stack.pop());
+        },
+
+        /**
+         * Resets the stack to an empty array
+         */
+        reset: function() {
+            this.stack = [];
+        },
+
+        /**
+         * Send current focus to an object as the current active (and focused)
+         * element. Enables some accessibility features (tabindex).
+         */
+        send: function($element) {
+            validate($element, function() {
+                // Ensure that the target element is focusable
+                if (!$element.attr('tabindex')) $element.attr('tabindex', '0');
+
+                // Focus it
+                return $element.focus();
+            });
+
+            return $element;
+        },
+    };
+
+    // Version
     FocusManager.VERSION = '0';
 
-    FocusManager.stack = [];
 
+    // Utilities
     var validate = function($element, callback) {
         try {
-            if ($element == undefined || $($element)[0].nodeType) {
+            if ($element === undefined || $($element)[0].nodeType) {
                 return $element && callback.apply(FocusManager);
             }
         }
 
         catch (e) {
-            throw "Invalid value passed to $element parameter";
+            throw 'Invalid value passed to $element parameter';
         }
     };
 
-    /**
-     * Adds an element to the focus stack
-     * @param element: a single DOM node or jQuery object
-     * @return {jQuery Object}
-     */
-    FocusManager.store = function($element) {
-        validate($element, function() {
-            this.stack.push($($element));
-        });
 
-        return $element;
-    };
-
-    /**
-     * Pops the stack then sets focus to what was the last element in the
-     * stack array.
-     * @return {jQuery Object}
-     */
-    FocusManager.restore = function() {
-        if (this.stack.length)
-            // First pop the stack, then send focus to the returned element
-            return this.send(this.stack.pop());
-    };
-
-    /**
-     * Resets the stack to an empty array
-     */
-    FocusManager.reset = function() {
-        this.stack = [];
-    };
-
-    /**
-     * Send current focus to an object as the current active (and focused)
-     * element. Enables some accessibility features (tabindex).
-     */
-    FocusManager.send = function($element) {
-        validate($element, function() {
-            // Ensure that the target element is focusable
-            if (!$element.attr('tabindex')) $element.attr('tabindex', '0');
-
-            // Focus it
-            return $element.focus();
-        });
-
-        return $element;
-    };
-
+    // Expose!
     window.FocusManager = FocusManager; // temporary solution, probably needs to change for Require to work
-
     return FocusManager;
+
 }));
