@@ -105,7 +105,9 @@
             </div>
         </div>
 
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+        <h2>Hybrid Example: Modal + Accordion</h2>
+
+        <p><button type="button" for="modal-2" class="js-open-modal">Open</button></p>
     </div>
 
     <div id="modal-1" class="modal" hidden>
@@ -120,6 +122,48 @@
         <div class="modal__overlay"></div>
     </div>
 
+    <div id="modal-2" class="modal" hidden>
+        <div class="modal__inner">
+            <label for="input">Text Input</label>
+            <input type="text" id="input" name="input" value="">
+            <strong>MODAL #2</strong>
+
+            <p>In this example, we are <strong>want</strong> all the accordion items to keep their focus history, regardless of what happens to the Modal focus history</p>
+
+            <div class="accordion">
+                <div class="accordion__item">
+                    <div class="accordion__head">
+                        <button class="accordion__heading js-open-accordion">Accordion Item 1</button>
+                    </div>
+                    <div class="accordion__body">
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                    </div>
+                </div>
+
+                <div class="accordion__item">
+                    <div class="accordion__head">
+                        <button class="accordion__heading js-open-accordion">Accordion Item 2</button>
+                    </div>
+                    <div class="accordion__body">
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                    </div>
+                </div>
+
+                <div class="accordion__item">
+                    <div class="accordion__head">
+                        <button class="accordion__heading js-open-accordion">Accordion Item 3</button>
+                    </div>
+                    <div class="accordion__body">
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                    </div>
+                </div>
+            </div>
+
+            <button type="button" id="closeModalButton" class="js-close-modal">Close Modal</button>
+        </div>
+
+        <div class="modal__overlay"></div>
+    </div>
 
     <script src="../../dist/focus-manager.js"></script>
     <script src="../../lib/fixtures/modal.js"></script>
