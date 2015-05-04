@@ -62,5 +62,11 @@ define([
 
             expect($target.attr('tabindex')).to.equal('-1');
         });
+
+        it('should return the element focus was sent to', function() {
+            $target = $('#tooltip1').attr('tabindex', -1);
+
+            expect(FocusManager.send($target)).to.equal($target);
+        });
     });
 });

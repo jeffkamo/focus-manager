@@ -47,6 +47,24 @@ define([
             expect(FocusManager.restore()).to.be.length(1);
         });
 
+        it('should set a tabindex on the target element if there isn\'t one already', function() {
+            $target = $('.accordion__head').first();
+
+            FocusManager.store($target);
+            FocusManager.restore();
+
+            expect($target.attr('tabindex')).to.equal('0');
+        });
+
+        it('should leave a tabindex as is if one is already present', function() {
+            $target = $('.accordion__head').first().attr('tabindex', '-1');
+
+            FocusManager.store($target);
+            FocusManager.restore();
+
+            expect($target.attr('tabindex')).to.equal('-1');
+        });
+
         // it('should focus on the restored DOM node', function(done) {
         //     var $button = $('button').first();
         //

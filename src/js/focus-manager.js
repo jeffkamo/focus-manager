@@ -60,7 +60,7 @@
     var validate = function($element, callback) {
         try {
             if ($element == undefined || $($element)[0].nodeType) {
-                $element && callback.apply(FocusManager);
+                return $element && callback.apply(FocusManager);
             }
         }
 
@@ -89,7 +89,8 @@
      */
     FocusManager.restore = function() {
         if (this.stack.length)
-            return this.stack.pop().focus();
+            // First pop the stack, then send focus to the returned element
+            return this.send(this.stack.pop());
     };
 
     /**
@@ -111,6 +112,8 @@
             // Focus it
             return $element.focus();
         });
+
+        return $element;
     };
 
     window.FocusManager = FocusManager; // temporary solution, probably needs to change for Require to work

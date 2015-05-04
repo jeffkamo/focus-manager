@@ -38,23 +38,70 @@
 
             background: rgba(0, 0, 0, 0.5);
         }
+
+        .accordion {
+            background: #f1f1f1;
+        }
+
+        .accordion__item {
+            padding: 1rem;
+        }
+
+        .accordion__body {
+            display: none;
+        }
+
+        .accordion__body.is-open {
+            display: initial;
+        }
     </style>
 </head>
 <body>
 
     <div class="content">
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+        <h2>Tooltip Example Use Case</h2>
 
         <div id="tooltip1" class="tooltip" hidden>
             <p>Tooltip #1</p>
             <button type="button" id="closeTooltip1" name="closeTooltip1">Close Tooltip</button>
         </div>
 
-        <p><a href="#" id="openTooltip1">Open Tooltip 1</a></p>
+        <p><button type="button" id="openTooltip1">Open Tooltip 1</button></p>
 
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+        <h2>Modal Example Use Case</h2>
 
         <p><button type="button" id="openModalButton">Open</button></p>
+
+        <h2>Accordion Example Use Case</h2>
+
+        <div class="accordion">
+            <div class="accordion__item">
+                <div class="accordion__head">
+                    <button class="accordion__heading js-open-accordion">Accordion Item 1</button>
+                </div>
+                <div class="accordion__body">
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                </div>
+            </div>
+
+            <div class="accordion__item">
+                <div class="accordion__head">
+                    <button class="accordion__heading js-open-accordion">Accordion Item 2</button>
+                </div>
+                <div class="accordion__body">
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                </div>
+            </div>
+
+            <div class="accordion__item">
+                <div class="accordion__head">
+                    <button class="accordion__heading js-open-accordion">Accordion Item 3</button>
+                </div>
+                <div class="accordion__body">
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                </div>
+            </div>
+        </div>
 
         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
     </div>
@@ -74,6 +121,7 @@
     <script src="../../dist/focus-manager.js"></script>
     <script src="../../lib/fixtures/modal.js"></script>
     <script src="../../lib/fixtures/tooltip.js"></script>
+    <script src="../../lib/fixtures/accordion.js"></script>
     <script data-main="../runner/sandbox-main" src="../../bower_components/requirejs/require.js"></script>
 </body>
 </html>
