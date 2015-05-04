@@ -5,7 +5,7 @@ define([
     var focusManager;
     var $;
 
-    describe('FocusManager send', function() {
+    describe('FocusManager reset', function() {
         beforeEach(function(done) {
             var setUpComplete = function(iFrame$, dependencies) {
                 $ = iFrame$;
