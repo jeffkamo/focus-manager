@@ -75,28 +75,29 @@
          * @return {jQuery Object}
          */
         self.restore = function(context) {
-            if (self.stack.length) {
+            if (!self.stack.length) return;
 
-                if (context !== undefined) {
-                    // Find all the memories we want to restore
-                    var memories = self.stack.filter(function(memory) {
-                        if (memory.context === context) {
-                            var position = self.stack.indexOf(memory);
+            if (context !== undefined) {
 
-                            self.stack.splice(position, 1);
+                // Find all the memories we want to restore
+                var memories = self.stack.filter(function(memory) {
+                    if (memory.context === context) {
+                        var indexOfMemory = self.stack.indexOf(memory);
 
-                            return memory;
-                        }
-                    });
+                        self.stack.splice(indexOfMemory, 1);
 
-                    return self.send(memories[0].cache);
-                } else {
-                    var memory = self.stack.pop().cache;
+                        return memory;
+                    }
+                });
 
-                    // First pop the stack, then send focus to the returned element
-                    return self.send(memory);
-                }
+                return self.send(memories[0].cache);
             }
+
+            // else...
+            var memory = self.stack.pop().cache;
+
+            // First pop the stack, then send focus to the returned element
+            return self.send(memory);
         };
 
         /**
