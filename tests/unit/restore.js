@@ -65,24 +65,21 @@ define([
             expect($target.attr('tabindex')).to.equal('-1');
         });
 
-        // it('should focus on the restored DOM node', function(done) {
-        //     var $button = $('button').first();
-        //
-        //     $button.focus(function() {
-        //         // clearTimeout(errTimeout);
-        //         // expect(true).to.be.true;
-        //         // done();
-        //         // debugger;
-        //     });
-        //
-        //     FocusManager.store($button);
-        //
-        //     // var errTimeout = setTimeout(function() {
-        //     //     expect(false).to.be.true; // Event never fired
-        //     //     done();
-        //     // }, 1000);
-        //
-        //     FocusManager.restore();
+        // it('should restore a plain DOM node', function() {
+        //     FocusManager.store($('<div></div>')[0]);
+        //     // ...
         // });
+
+        it('should restore the context that\s supplied instead of the default', function(done) {
+            $target1 = $('.accordion__heading').first();
+            $target2 = $('.accordion__heading').last();
+
+            FocusManager.store($target1, 'target1');
+            FocusManager.store($target2, 'target2');
+
+            expect(FocusManager.restore('target1')).to.equal($target1);
+
+            done();
+        });
     });
 });

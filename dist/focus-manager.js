@@ -61,9 +61,10 @@
          * @param element: a single DOM node or jQuery object
          * @return {jQuery Object}
          */
-        self.store = function($element) {
-            validate($element, function() {
-                self.stack.push($($element));
+        self.store = function($element, context) {
+            validate($element, function($validElem) {
+                var memory = new Memory($validElem, context);
+                self.stack.push(memory);
             });
 
             return $element;
@@ -74,10 +75,29 @@
          * stack array.
          * @return {jQuery Object}
          */
-        self.restore = function() {
-            if (self.stack.length)
-                // First pop the stack, then send focus to the returned element
-                return self.send(self.stack.pop());
+        self.restore = function(context) {
+            if (self.stack.length) {
+
+                if (context !== undefined) {
+                    // Find all the memories we want to restore
+                    var memories = self.stack.filter(function(memory) {
+                        if (memory.context === context) {
+                            var position = self.stack.indexOf(memory);
+
+                            self.stack.splice(position, 1);
+
+                            return memory;
+                        }
+                    });
+
+                    return self.send(memories[0].cache);
+                } else {
+                    var memory = self.stack.pop().cache;
+
+                    // First pop the stack, then send focus to the returned element
+                    return self.send(memory);
+                }
+            }
         };
 
         /**
@@ -92,27 +112,37 @@
          * element. Enables some accessibility features (tabindex).
          */
         self.send = function($element) {
-            validate($element, function() {
+            validate($element, function($validElem) {
                 // Ensure that the target element is focusable
-                if (!$element.attr('tabindex')) $element.attr('tabindex', '0');
+                if (!$validElem.attr('tabindex')) $validElem.attr('tabindex', '0');
 
                 // Focus it
-                return $element.focus();
+                return $validElem.focus();
             });
 
             return $element;
         };
     };
 
+
     // Version
     FocusManager.VERSION = '1.0.0';
+
+
+    // Memory
+    var Memory = function(cache, context) {
+        this.cache = cache;
+        this.context = context;
+    };
 
 
     // Utilities
     var validate = function($element, callback) {
         try {
+            // Let undefined $element pass through this initial check
             if ($element === undefined || $($element)[0].nodeType) {
-                return $element && callback.apply();
+                // So long as $element is not undefined, execute the callback
+                return $element && callback.call($element, $($element));
             }
         }
 
