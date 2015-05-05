@@ -29,16 +29,12 @@
 // mouse" should return focus to its appropriate state.
 //
 //
-// Feature Wishlist
+// TODO
 // ---
 //
-// - [ ] Awareness of active vs. non-active containers
-// - [ ] Unfocusable Manager (make things unfocusable, i.e. the body when a
-//       modal is open)
-// - [ ] Input Device Manager (keyCode maps)
-// - [ ] Default collection of interaction events (click, escabe, blur, etc.)
-// - [ ] Mobile Screen Reader Helpers?
-// - [ ] Custom, pluginable events? (before/after focus and before/after blur)
+// - [ ] Implement/follow singleton pattern
+// - [ ] Remove "Expose!" code at the bottom and just return FocusManager
+// - [ ] Implement the correct modular pattern
 
 (function(factory) {
     if (typeof define === 'function' && define.amd) {
@@ -54,7 +50,12 @@
     var FocusManager = function() {
         var self = this;
 
-        self.stack = [];
+        self.stack = [
+            // Memory 1
+            // { cache: $(), context: 'thing1' },
+            // Memory 2
+            // { cache: $(), context: 'thing1' }
+        ];
 
         /**
          * Adds an element to the focus stack
@@ -63,7 +64,10 @@
          */
         self.store = function($element, context) {
             validate($element, function($validElem) {
-                self.stack.push(new Memory($validElem, context));
+                self.stack.push({
+                    cache: $validElem,
+                    context: context
+                });
             });
 
             return $element;
@@ -80,17 +84,16 @@
             if (context !== undefined) {
 
                 // Find all the memories we want to restore
-                var memories = self.stack.filter(function(memory) {
+                var contextMemories = self.stack.filter(function(memory, idx) {
                     if (memory.context === context) {
-                        var indexOfMemory = self.stack.indexOf(memory);
 
-                        self.stack.splice(indexOfMemory, 1);
+                        self.stack.splice(idx, 1);
 
                         return memory;
                     }
                 });
 
-                return self.send(memories[0].cache);
+                return self.send(contextMemories[0].cache);
             }
 
             // else...
@@ -114,7 +117,7 @@
         self.send = function($element) {
             validate($element, function($validElem) {
                 // Ensure that the target element is focusable
-                if (!$validElem.attr('tabindex')) $validElem.attr('tabindex', '0');
+                if (!$validElem.attr('tabindex')) { $validElem.attr('tabindex', '0'); }
 
                 // Focus it
                 return $validElem.focus();
@@ -138,6 +141,8 @@
 
     // Utilities
     var validate = function($element, callback) {
+        // if (!$element) { return; }
+
         try {
             // Let undefined $element pass through this initial check
             if ($element === undefined || $($element)[0].nodeType) {
@@ -145,9 +150,7 @@
                 // to which we pass what we know to be a valid element
                 return $element && callback.call($element, $($element));
             }
-        }
-
-        catch (e) {
+        } catch (e) {
             throw 'Invalid value passed to $element parameter';
         }
     };
