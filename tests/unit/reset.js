@@ -25,7 +25,7 @@ define([
 
             FocusManager.reset();
 
-            expect(FocusManager.stack).to.eql([]);
+            expect(FocusManager.getStack()).to.eql([]);
         });
     });
 });

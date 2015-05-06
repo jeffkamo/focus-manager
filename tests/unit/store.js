@@ -49,19 +49,19 @@ define([
 
         it('stores a new memory to the stack', function() {
             FocusManager.store($('<div></div>'));
-            expect(FocusManager.stack).to.have.length(1);
+            expect(FocusManager.getStack()).to.have.length(1);
         });
 
         it('can store multiple memories to the stack', function() {
             FocusManager.store($('<div></div>'));
             FocusManager.store($('<div></div>'));
             FocusManager.store($('<div></div>'));
-            expect(FocusManager.stack).to.have.length(3);
+            expect(FocusManager.getStack()).to.have.length(3);
         });
 
         it('should not add to the stack if the parameter is undefined', function() {
             FocusManager.store();
-            expect(FocusManager.stack).to.have.length(0);
+            expect(FocusManager.getStack()).to.have.length(0);
         });
 
         it('should return the stored DOM node', function() {
