@@ -37,9 +37,7 @@
 
 (function(factory) {
     if (typeof define === 'function' && define.amd) {
-        define([
-            '$'
-        ], factory);
+        define(['$'], factory);
     } else {
         var framework = window.Zepto || window.jQuery;
         factory(framework);
@@ -57,16 +55,15 @@
 
 
     var stack = [
-        // Memory 1
-        // { cache: $(), context: 'thing1' },
-        // Memory 2
-        // { cache: $(), context: 'thing1' }
+        // Memory 1 { cache: $(), context: 'thing1' },
+        // Memory 2 { cache: $(), context: 'thing1' }
     ];
 
 
     /**
      * Adds an element to the focus stack
-     * @param element: a single DOM node or jQuery object
+     * @param $element: a single DOM node or jQuery object
+     * @param context: a string to give the stored DOM/jQuery object a context
      * @return {jQuery Object}
      */
     var store = function($element, context) {
@@ -84,6 +81,8 @@
     /**
      * Pops the stack then sets focus to what was the last element in the
      * stack array.
+     * @param context: [option] restores a specific context from the stack
+     //                instead of the last memory on the stack
      * @return {jQuery Object}
      */
     var restore = function(context) {
@@ -123,6 +122,7 @@
     /**
      * Send current focus to an object as the current active (and focused)
      * element. Enables some accessibility features (tabindex).
+     * @param $element: a single DOM node or jQuery object
      */
     var send = function($element) {
         validate($element, function($validElem) {
@@ -137,14 +137,13 @@
     };
 
 
-    // Memory
-    var Memory = function(cache, context) {
-        this.cache = cache;
-        this.context = context;
-    };
-
-
-    // Utilities
+    /**
+     * Validate an the $element parameter to ensure it is a valid DOM node or
+     * jQuery object, and if that's true then perform the callback
+     * @param $element: a single DOM node or jQuery object
+     * @param callback: a function callback that occurs so long as $element is
+     *                  a valid DOM node or jQuery object
+     */
     var validate = function($element, callback) {
         // Not doing this because it doesn't cause an error if invalid data is
         // passed to the `$element` parameter
