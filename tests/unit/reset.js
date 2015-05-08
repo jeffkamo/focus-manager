@@ -11,6 +11,8 @@ define([
                 $ = iFrame$;
 
                 FocusManager = dependencies.FocusManager;
+                focusManager = FocusManager.init();
+                focusManager.reset();
 
                 done();
             };
@@ -19,13 +21,13 @@ define([
         });
 
         it('should reset the stack back to an empty array', function() {
-            FocusManager.store($('<div></div>'));
-            FocusManager.store($('<div></div>'));
-            FocusManager.store($('<div></div>'));
+            focusManager.store($('<div></div>'));
+            focusManager.store($('<div></div>'));
+            focusManager.store($('<div></div>'));
 
-            FocusManager.reset();
+            focusManager.reset();
 
-            expect(FocusManager.getStack()).to.eql([]);
+            expect(focusManager.getStack()).to.eql([]);
         });
     });
 });

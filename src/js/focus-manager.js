@@ -46,7 +46,11 @@
 
 
     var FocusManager = function() {
-        var self = this;
+        if (FocusManager.prototype._instance) {
+            return FocusManager.prototype._instance;
+        }
+
+        FocusManager.prototype._instance = this;
     };
 
 
@@ -58,6 +62,15 @@
         // Memory 1 { cache: $(), context: 'thing1' },
         // Memory 2 { cache: $(), context: 'thing1' }
     ];
+
+
+    /**
+     * Initializes descript, ensuring a Singleton instance.
+     * @returns {*|FocusManager}
+     */
+    FocusManager.init = function() {
+        return FocusManager.prototype._instance || new FocusManager();
+    };
 
 
     /**
@@ -172,8 +185,7 @@
 
 
     // Expose!
-    var focusManager = new FocusManager();
-    window.FocusManager = focusManager; // temporary solution, probably needs to change for Require to work
-    return focusManager;
+    window.FocusManager = FocusManager; // temporary solution, probably needs to change for Require to work
+    return FocusManager;
 
 }));

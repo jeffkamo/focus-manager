@@ -11,6 +11,8 @@ define([
                 $ = iFrame$;
 
                 FocusManager = dependencies.FocusManager;
+                focusManager = FocusManager.init();
+                focusManager.reset();
 
                 done();
             };
@@ -19,21 +21,21 @@ define([
         });
 
         it('should not throw an error if no element parameter is supplied', function() {
-            expect(function() { FocusManager.store() }).not.to.throw();
+            expect(function() { focusManager.store() }).not.to.throw();
         });
 
         it('should not throw an error if a DOM node is supplied', function() {
-            expect(function() { FocusManager.store($('<a href="#">dom node</a>')[0]) }).not.to.throw();
+            expect(function() { focusManager.store($('<a href="#">dom node</a>')[0]) }).not.to.throw();
         });
 
         it('should not throw an error if a jQuery object is supplied', function() {
-            expect(function() { FocusManager.store($('<a href="#">dom node</a>')) }).not.to.throw();
+            expect(function() { focusManager.store($('<a href="#">dom node</a>')) }).not.to.throw();
         });
 
         it('should throw an error if any invalid data type is supplied', function() {
             var store = function() {
                 $.each(arguments, function(arg) {
-                    expect(function() { FocusManager.send(arg); }).to.throw();
+                    expect(function() { focusManager.send(arg); }).to.throw();
                 });
             };
 
@@ -50,7 +52,7 @@ define([
         it('should set a tabindex on the target element if there isn\'t one already', function() {
             $target = $('#tooltip1');
 
-            FocusManager.send($target);
+            focusManager.send($target);
 
             expect($target.attr('tabindex')).to.equal('0');
         });
@@ -58,7 +60,7 @@ define([
         it('should leave a tabindex as is if one is already present', function() {
             $target = $('#tooltip1').attr('tabindex', -1);
 
-            FocusManager.send($target);
+            focusManager.send($target);
 
             expect($target.attr('tabindex')).to.equal('-1');
         });
@@ -66,7 +68,7 @@ define([
         it('should return the element focus was sent to', function() {
             $target = $('#tooltip1').attr('tabindex', -1);
 
-            expect(FocusManager.send($target)).to.equal($target);
+            expect(focusManager.send($target)).to.equal($target);
         });
     });
 });
