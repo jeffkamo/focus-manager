@@ -6,7 +6,10 @@ require.config({
         '$': 'lib/zeptojs/dist/zepto',
         'chai': 'node_modules/chai/chai',
         'mocha': 'node_modules/mocha/mocha',
-        'focusManager': 'src/js/focus-manager'
+        'focusManager': 'src/js/focus-manager',
+        'accordion': 'lib/fixtures/accordion',
+        'modal': 'lib/fixtures/modal',
+        'tooltip': 'lib/fixtures/tooltip',
     },
     'shim': {
         'mocha': {

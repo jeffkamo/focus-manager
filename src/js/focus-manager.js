@@ -58,6 +58,7 @@
     FocusManager.VERSION = '0';
 
 
+    // the stack (of memories)!
     var stack = [
         // Memory 1 { cache: $(), context: 'thing1' },
         // Memory 2 { cache: $(), context: 'thing1' }
@@ -79,7 +80,7 @@
      * @param context: a string to give the stored DOM/jQuery object a context
      * @return {jQuery Object}
      */
-    var store = function($element, context) {
+    FocusManager.prototype.store = function($element, context) {
         validate($element, function($validElem) {
             stack.push({
                 cache: $validElem,
@@ -98,7 +99,7 @@
      //                instead of the last memory on the stack
      * @return {jQuery Object}
      */
-    var restore = function(context) {
+    FocusManager.prototype.restore = function(context) {
         if (!stack.length) return;
 
         if (context !== undefined) {
@@ -113,21 +114,21 @@
                 }
             });
 
-            return send(contextMemories[0].cache);
+            return this.send(contextMemories[0].cache);
         }
 
         // else...
         var memory = stack.pop().cache;
 
         // First pop the stack, then send focus to the returned element
-        return send(memory);
+        return this.send(memory);
     };
 
 
     /**
      * Resets the stack to an empty array
      */
-    var reset = function() {
+    FocusManager.prototype.reset = function() {
         stack = [];
     };
 
@@ -137,7 +138,7 @@
      * element. Enables some accessibility features (tabindex).
      * @param $element: a single DOM node or jQuery object
      */
-    var send = function($element) {
+    FocusManager.prototype.send = function($element) {
         validate($element, function($validElem) {
             // Ensure that the target element is focusable
             if (!$validElem.attr('tabindex')) { $validElem.attr('tabindex', '0'); }
@@ -147,6 +148,15 @@
         });
 
         return $element;
+    };
+
+
+    /**
+     * Publically reveal the stack, but as a duplicate so it can't be modified
+     * @return the stack (as a duplicate)
+     */
+    FocusManager.prototype.getStack = function() {
+        return stack.concat();
     };
 
 
@@ -173,19 +183,5 @@
         }
     };
 
-
-    FocusManager.prototype.store = store;
-    FocusManager.prototype.restore = restore;
-    FocusManager.prototype.reset = reset;
-    FocusManager.prototype.send = send;
-    FocusManager.prototype.getStack = function() {
-        // Publically reveal the stack, but as a duplicate so it can't be modified
-        return stack.concat();
-    };
-
-
-    // Expose!
-    window.FocusManager = FocusManager; // temporary solution, probably needs to change for Require to work
     return FocusManager;
-
 }));
