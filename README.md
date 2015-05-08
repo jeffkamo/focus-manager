@@ -35,7 +35,7 @@ $('#openModal').click(function() {
 
 ### Send Focus to anything
 
-Even if an element is normally not focusable (i.e. a `div`), you can send focus to it using `focusManager`.
+Even if an element is normally not focusable (i.e. a `div`), you can send focus to it using `focusManager`. A `tabindex` will be added if one is missing to ensure focus is possible.
 
 ```js
 $('#openModal').click(function() {
@@ -71,7 +71,7 @@ Stores a DOM element in memory for future focus restoration.
 
 ### `send()`
 
-Sends focus to any DOM element.
+Sends focus to any DOM element. A `tabindex` will be added to the target DOM element if one isn't already present.
 
 | Parameter name | Description |
 |----------------|-------------|
