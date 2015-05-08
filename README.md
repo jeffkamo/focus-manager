@@ -28,7 +28,7 @@ When you want to record an element for future focus restoration, store that elem
 
 ```js
 $('#openModal').click(function() {
-    focusManager.store(this, 'openModalButton');
+    focusManager.store($(this), 'openModalButton');
 });
 ```
 
@@ -39,7 +39,7 @@ Even if an element is normally not focusable (i.e. a `div`), you can send focus 
 
 ```js
 $('#openModal').click(function() {
-    focusManager.store(this, 'openModalButton');
+    focusManager.store($(this), 'openModalButton');
     // open and reveal the modal
     focusManager.send('#myModal');
 });
